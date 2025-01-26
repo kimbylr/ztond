@@ -1,0 +1,8 @@
+{
+  "short_name": "ztond",
+  "name": "ztond",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#69a6ce",
+  "background_color": "#ffffff"
+}

@@ -30,7 +30,7 @@ dexie.version(1).stores({
 });
 
 dexie.cloud.configure({
-  databaseUrl: process.env.DEXIE_URL ?? '',
+  databaseUrl: process.env.NEXT_PUBLIC_DEXIE_URL ?? '',
   requireAuth: true,
 });
 
