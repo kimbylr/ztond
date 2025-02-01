@@ -1,7 +1,7 @@
 import { editTodo, TodoItem, triggerTodoDone } from '@/services/dexie';
 import { classNames } from '@/utils/class-names';
 import { Draggable, Droppable } from '@hello-pangea/dnd';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useListContext } from '../context';
 import { IconCheckCircle } from '../icons/check-circle';
 import { IconDragGrip } from '../icons/drag-grip';
@@ -52,6 +52,7 @@ const Item: FC<{ todo: TodoItem; index: number }> = ({ todo, index }) => {
   // const dragGripProps = { ref: setNodeRef, ...attributes, ...listeners };
   const onSetDone = (todoId: string) => triggerTodoDone({ listId: activeListId!, todoId });
   const Element = todo.content.startsWith('---') ? DividerItem : ContentItem;
+  const [minHeight, setHeight] = useState(0);
 
   return (
     <Draggable draggableId={todo.id} index={index}>
@@ -60,16 +61,22 @@ const Item: FC<{ todo: TodoItem; index: number }> = ({ todo, index }) => {
           className="size-10 relative mb-[3px]"
           ref={provided.innerRef}
           {...provided.draggableProps}
-          style={provided.draggableProps.style}
+          style={{ ...provided.draggableProps.style, minHeight }}
           id={todo.id}
         >
           <div
             className={classNames(
-              'absolute right-0 w-screen',
+              'absolute right-0 w-screen flex',
               isDragging && 'shadow-[0_0_12px_#6669] '
             )}
+            style={{ minHeight }}
           >
-            <Element todo={todo} onSetDone={onSetDone} dragGripProps={provided.dragHandleProps} />
+            <Element
+              todo={todo}
+              onSetDone={onSetDone}
+              dragGripProps={provided.dragHandleProps}
+              setHeight={setHeight}
+            />
           </div>
         </li>
       )}
@@ -81,6 +88,7 @@ type ItemProps = {
   todo: TodoItem;
   dragGripProps: object | null;
   onSetDone: (id: string) => void;
+  setHeight: (px: number) => void;
 };
 
 const DividerItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
@@ -108,7 +116,7 @@ const DividerItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
   return (
     <button
       onClick={() => onSetDone(todo.id)}
-      className="relative h-10 flex w-full justify-center items-center gap-4 bg-white"
+      className="relative min-h-10 flex w-full justify-center items-center gap-4 bg-white"
     >
       <span className="w-[9%] border-b-2 border-dashed border-gray-500" />
       <span className="text-gray-600 text-lg">{todo.content.substring(3).trim()}</span>
@@ -118,7 +126,7 @@ const DividerItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
   );
 };
 
-const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
+const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight }) => {
   const { content: initialContent, url: initialUrl, id } = todo;
   const [content, setContent] = useState(todo.content);
   const [editLink, setEditLink] = useState(false);
@@ -132,10 +140,15 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
     setEditing(false);
   };
 
+  const ref = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (ref.current && ref.current.offsetHeight > 40) setHeight(ref.current.offsetHeight + 10);
+  }, [setHeight]);
+
   return (
     <span
       className={classNames(
-        'flex gap-2.5 min-h-10 pl-6 pr-3 bg-gray-100 items-center justify-between text-lg',
+        'flex gap-2.5 grow min-h-10 pl-6 pr-3 bg-gray-100 items-center justify-between text-lg',
         todo.done ? 'line-through text-gray-300' : 'text-gray-900'
       )}
     >
@@ -144,19 +157,21 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
           <input
             type="text"
             id="edit-content"
-            className="text-primary outline-none grow bg-transparent selection:bg-gray-200 w-full"
+            className="text-primary outline-none grow bg-transparent selection:bg-gray-200 w-full appearance-none"
             placeholder={initialContent}
             value={content}
             onChange={({ currentTarget: { value } }) => setContent(value)}
             autoFocus
             onBlur={(e) => e.relatedTarget?.id !== 'edit-url-button' && setEditing(false)}
             onFocus={(e) => e.currentTarget.select()}
+            autoCapitalize="none"
           />
         </form>
       ) : (
         <button
-          className="overflow-hidden text-ellipsis cursor-pointer grow text-left"
+          className="overflow-hidden text-ellipsis cursor-pointer grow text-left leading-snug"
           onClick={() => onSetDone(id)}
+          ref={ref}
         >
           {content}
         </button>

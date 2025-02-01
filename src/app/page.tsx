@@ -40,7 +40,7 @@ const Page = () => {
 
           <DragArea />
 
-          <div className="p-6 flex items-center gap-2.5">
+          <div className="px-6 pt-8 pb-12 flex items-center gap-2.5">
             <Switch active={displayDone} toggleActive={() => setDisplayDone((d) => !d)} />
             <span className={classNames(displayDone ? 'text-primary' : 'text-gray-500')}>
               Erledigte anzeigen
