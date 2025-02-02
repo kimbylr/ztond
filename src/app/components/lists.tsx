@@ -92,7 +92,7 @@ const List: FC<{
           >
             {list.title}
             <hr className="border-l border-current h-5" />
-            <span className="text-sm mt-0.5">{list.todoCount}</span>
+            <span className="text-sm">{list.todoCount}</span>
           </button>
           {editMode && (
             <>
