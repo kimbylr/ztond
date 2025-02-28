@@ -80,12 +80,13 @@ const DragArea = () => {
     editTodoPositions([{ id: itemId, position: newIndex + offset }, ...itemsBetween]);
   };
 
-  const dragToOtherList = (todoId: string, newListId: string) => {
+  const dragToOtherList = async (todoId: string, newListId: string) => {
     const todo = todos?.find(({ id }) => id === todoId);
     if (!todo) return;
 
-    editTodo({ id: todoId, done: true, content: `*verschoben* ${todo.content}` });
-    addTodo({ content: todo.content, url: todo.url, listId: newListId });
+    const { content, url, listId, id } = todo;
+    await editTodo({ id, listId, done: true, content: `*verschoben* ${todo.content}` });
+    addTodo({ content, url, listId: newListId }, true, true);
   };
 
   const onDragEnd: OnDragEndResponder = ({ draggableId: itemId, destination }) => {

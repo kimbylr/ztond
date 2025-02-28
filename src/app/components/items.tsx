@@ -127,7 +127,7 @@ const DividerItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
 };
 
 const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight }) => {
-  const { content: initialContent, url: initialUrl, id } = todo;
+  const { content: initialContent, url: initialUrl, id, listId } = todo;
   const [content, setContent] = useState(todo.content);
   const [editLink, setEditLink] = useState(false);
   const [url, setUrl] = useState(initialUrl || '');
@@ -135,7 +135,7 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
   const [editing, setEditing] = useState(false);
   const onEdit = () => {
     if (content.trim() || url !== initialUrl) {
-      editTodo({ id, content, url });
+      editTodo({ listId, id, content, url });
     }
     setEditing(false);
   };

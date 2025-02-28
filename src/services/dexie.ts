@@ -54,11 +54,11 @@ export const addList = async (title: string) =>
 export const updateList = (listId: string, obj: Partial<TodoList>) =>
   dexie.lists.update(listId, obj);
 
-const updateListTodoCount = async (listId: string) => {
+const updateListTodoCount = async (listId: string, updatedAtMsAgo = 0) => {
   const todoCount = (await dexie.items.where({ listId }).toArray()).filter(
     ({ content, done }) => !content.startsWith('---') && !done
   ).length;
-  updateList(listId, { todoCount, updatedAt: Date.now().valueOf() });
+  updateList(listId, { todoCount, updatedAt: Date.now().valueOf() - updatedAtMsAgo });
 };
 
 const updateListDateNow = async ({ id, type }: { id: string; type: 'listId' | 'itemId' }) => {
@@ -78,18 +78,19 @@ export const useTodos = (listId: string | null) =>
 
 export const addTodo = async (
   args: { listId: string; content: string; url?: string },
-  prepend?: boolean
+  prepend?: boolean,
+  antedate?: boolean
 ) => {
   const items = await dexie.items.where({ listId: args.listId }).sortBy('position');
   const position = prepend ? (items.at(0)?.position ?? 0) - 1 : (items.at(-1)?.position ?? 0) + 1;
   dexie.items.add({ ...args, position });
-  updateListTodoCount(args.listId);
+  updateListTodoCount(args.listId, antedate ? 1000 : 0);
 };
 
-type EditTodoArgs = { id: string; content?: string; url?: string; done?: boolean };
-export const editTodo = async ({ id, content, url, done }: EditTodoArgs) => {
+type EditTodoArgs = { id: string; listId: string; content?: string; url?: string; done?: boolean };
+export const editTodo = async ({ id, listId, content, url, done }: EditTodoArgs) => {
   dexie.items.update(id, { content, url, done });
-  updateListDateNow({ id, type: 'itemId' });
+  updateListTodoCount(listId);
 };
 
 export const editTodoPositions = async (changes: { id: string; position: number }[]) => {
