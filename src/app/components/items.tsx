@@ -197,7 +197,8 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
           <IconDragGrip className="size-5 text-gray-200 rotate-90" />
         </button>
       ) : (
-        <button onClick={() => setEditLink(true)} id="edit-url-button">
+        // tabindex is needed to be recognised as relatedTarget by Safari
+        <button onClick={() => setEditLink(true)} id="edit-url-button" tabIndex={0}>
           <IconLink
             className={classNames(
               'size-6 p-1.5 -m-0.5',
