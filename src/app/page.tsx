@@ -9,7 +9,7 @@ import {
 } from '@/services/dexie';
 import { classNames } from '@/utils/class-names';
 import { DragDropContext, OnDragEndResponder } from '@hello-pangea/dnd';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { CreateTodo } from './components/create-todo';
 import { Header } from './components/header';
 import { DROPPABLE_ID_ACTIVE_LIST, Items } from './components/items';
@@ -20,6 +20,7 @@ import { ListContext, useListContext } from './context';
 const Page = () => {
   const [activeListId, setActiveListId] = useState<string | null>(null);
   const [displayDone, setDisplayDone] = useState(false);
+  const [prepend, setPrepend] = useState(true);
 
   useEffect(() => {
     if (activeListId === null) {
@@ -36,9 +37,9 @@ const Page = () => {
           /** header 80 + 16 + 16|notch */
           style={{ minHeight: 'calc(100vh - 96px - max(env(safe-area-inset-top), 16px))' }}
         >
-          <CreateTodo />
+          <CreateTodo prepend={prepend} setPrepend={setPrepend} />
 
-          <DragArea />
+          <DragArea prepend={prepend} />
 
           <div className="px-6 pt-8 pb-12 flex items-center gap-2.5">
             <Switch active={displayDone} toggleActive={() => setDisplayDone((d) => !d)} />
@@ -52,7 +53,7 @@ const Page = () => {
   );
 };
 
-const DragArea = () => {
+const DragArea: FC<{ prepend: boolean }> = ({ prepend }) => {
   const { activeListId, displayDone } = useListContext();
   const todos = useTodos(activeListId);
 
@@ -86,7 +87,7 @@ const DragArea = () => {
 
     const { content, url, listId, id } = todo;
     await editTodo({ id, listId, done: true, content: `*verschoben* ${todo.content}` });
-    addTodo({ content, url, listId: newListId }, true, true);
+    addTodo({ content, url, listId: newListId }, prepend, true);
   };
 
   const onDragEnd: OnDragEndResponder = ({ draggableId: itemId, destination }) => {

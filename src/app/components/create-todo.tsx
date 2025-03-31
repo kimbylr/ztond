@@ -1,17 +1,21 @@
 import { addTodo } from '@/services/dexie';
 import { classNames } from '@/utils/class-names';
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useListContext } from '../context';
 import { IconLink } from '../icons/link';
 import { TextFieldOverlay } from './overlay';
 
-export const CreateTodo: FC = () => {
+type Props = {
+  prepend: boolean;
+  setPrepend: Dispatch<SetStateAction<boolean>>;
+};
+
+export const CreateTodo: FC<Props> = ({ prepend, setPrepend }) => {
   const { activeListId } = useListContext();
 
   const [content, setContent] = useState('');
   const [showLink, setShowLink] = useState(false);
   const [url, setUrl] = useState('');
-  const [prepend, setPrepend] = useState(true);
 
   return (
     <div className="px-6 py-8 bg-primary-100 flex items-center gap-3">
