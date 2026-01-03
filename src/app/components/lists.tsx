@@ -87,7 +87,7 @@ const List: FC<{
               activeListId === list.id
                 ? 'text-gray-50 bg-primary border-primary'
                 : 'text-primary bg-gray-50 border-gray-300',
-              isDraggingOver && '!border-highlight outline-1 outline outline-highlight'
+              isDraggingOver && 'border-highlight! outline-1 outline-solid outline-highlight'
             )}
           >
             {list.title}

@@ -35,7 +35,7 @@ export const CreateTodo: FC<Props> = ({ prepend, setPrepend }) => {
           placeholder="ztond"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="outline-none w-full h-10 text-xl pr-10 px-2 border border-gray-300 font-normal text-gray-900 appearance-none rounded-none placeholder:text-gray-300"
+          className="outline-hidden w-full h-10 text-xl pr-10 px-2 border border-gray-300 font-normal text-gray-900 appearance-none rounded-none placeholder:text-gray-300 bg-white"
         />
         <button
           type="button"
@@ -68,8 +68,8 @@ export const CreateTodo: FC<Props> = ({ prepend, setPrepend }) => {
 
 const PrependButton: FC<{ prepend: boolean; onClick: () => void }> = ({ prepend, onClick }) => (
   <button type="button" onClick={onClick} className="w-5 shrink-0 flex gap-1 flex-col">
-    <span className={classNames('w-full h-[3px]', prepend ? 'bg-primary' : 'bg-white')} />
-    <span className="w-full h-[3px] bg-white" />
-    <span className={classNames('w-full h-[3px]', prepend ? 'bg-white' : 'bg-primary')} />
+    <span className={classNames('w-full h-0.75', prepend ? 'bg-primary' : 'bg-white')} />
+    <span className="w-full h-0.75 bg-white" />
+    <span className={classNames('w-full h-0.75', prepend ? 'bg-white' : 'bg-primary')} />
   </button>
 );

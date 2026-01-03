@@ -58,7 +58,7 @@ const Item: FC<{ todo: TodoItem; index: number }> = ({ todo, index }) => {
     <Draggable draggableId={todo.id} index={index}>
       {(provided, { isDragging }) => (
         <li
-          className="size-10 relative mb-[3px]"
+          className="size-10 relative mb-0.75"
           ref={provided.innerRef}
           {...provided.draggableProps}
           style={{ ...provided.draggableProps.style, minHeight }}
@@ -105,7 +105,7 @@ const DividerItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone }) => {
     return (
       <button
         onClick={() => onSetDone(todo.id)}
-        className="relative w-full h-10 !scale-y-100 bg-white flex items-center"
+        className="relative w-full h-10 scale-y-100! bg-white flex items-center"
       >
         <hr className="w-1/2 mx-auto border-t-2 border-dashed border-gray-500" />
         {grabButton}
@@ -157,7 +157,7 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
           <input
             type="text"
             id="edit-content"
-            className="text-primary outline-none grow bg-transparent selection:bg-gray-200 w-full appearance-none"
+            className="text-primary outline-hidden grow bg-transparent selection:bg-gray-200 w-full appearance-none"
             placeholder={initialContent}
             value={content}
             onChange={({ currentTarget: { value } }) => setContent(value)}

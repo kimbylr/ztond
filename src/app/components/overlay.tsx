@@ -33,7 +33,7 @@ export const TextFieldOverlay: FC<{
       <input
         name={input.name}
         type="text"
-        className="border-white border-b appearance-none placeholder:text-white/25 max-w-[80vw] text-xl px-0.5 py-1 text-white bg-[transparent] outline-none selection:bg-white/30"
+        className="border-white border-b appearance-none placeholder:text-white/25 max-w-[80vw] text-xl px-0.5 py-1 text-white bg-transparent outline-hidden selection:bg-white/30"
         placeholder={input.placeholder}
         autoFocus
         onFocus={(e) => e.currentTarget.select()}

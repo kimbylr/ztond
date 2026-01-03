@@ -1,6 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-primary-100: #d2e4f0;
+  --color-primary: #69a6ce;
+
+  --color-white: #fff;
+  --color-black: #000;
+  --color-highlight: #d85a75;
+
+  --color-gray-50: #fbfbfb;
+  --color-gray-100: #f8f8f8;
+  --color-gray-200: #e3e3e3;
+  --color-gray-300: #ccc;
+  --color-gray-500: #999;
+  --color-gray-600: #666;
+  --color-gray-700: #555;
+  --color-gray-900: #333;
+
+  --text-*: initial;
+  --text-sm: 0.75rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+}
 
 body {
   font-family: 'Trebuchet MS';

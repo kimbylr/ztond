@@ -16,7 +16,7 @@ export const Switch: FC<Props> = ({ active, toggleActive }) => (
   >
     <div
       className={classNames(
-        'absolute top-[3px] left-[3px] size-[18px] bg-white rounded-full shadow transition-transform duration-200',
+        'absolute top-0.75 left-0.75 size-4.5 bg-white rounded-full shadow-sm transition-transform duration-200',
         active ? 'translate-x-4' : 'translate-x-0'
       )}
     />
