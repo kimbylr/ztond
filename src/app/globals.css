@@ -43,5 +43,5 @@ button {
 } */
 
 .cursor-check {
-  cursor: url('icons/check-circle.svg') 12 12, cursor;
+  cursor: url('/check-circle.svg') 12 12, pointer;
 }
