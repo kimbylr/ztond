@@ -169,7 +169,7 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
         </form>
       ) : (
         <button
-          className="overflow-hidden text-ellipsis cursor-pointer grow text-left leading-snug"
+          className="overflow-hidden text-ellipsis grow text-left leading-snug cursor-check"
           onClick={() => onSetDone(id)}
           ref={ref}
         >
