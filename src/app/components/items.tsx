@@ -67,7 +67,7 @@ const Item: FC<{ todo: TodoItem; index: number }> = ({ todo, index }) => {
           <div
             className={classNames(
               'absolute right-0 w-screen flex',
-              isDragging && 'shadow-[0_0_12px_#6669] '
+              isDragging && 'shadow-[0_0_12px_#6669] ',
             )}
             style={{ minHeight }}
           >
@@ -149,7 +149,7 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
     <span
       className={classNames(
         'flex gap-2.5 grow min-h-10 pl-6 pr-3 bg-gray-100 items-center justify-between text-lg',
-        todo.done ? 'line-through text-gray-300' : 'text-gray-900'
+        todo.done ? 'line-through text-gray-300' : 'text-gray-900',
       )}
     >
       {editing ? (
@@ -169,7 +169,7 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
         </form>
       ) : (
         <button
-          className="overflow-hidden text-ellipsis grow text-left leading-snug cursor-check"
+          className="overflow-hidden text-ellipsis grow text-left leading-snug"
           onClick={() => onSetDone(id)}
           ref={ref}
         >
@@ -187,7 +187,7 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
         <IconEdit
           className={classNames(
             'size-6 p-1.5 -m-1.5',
-            editing ? 'text-primary' : 'text-gray-500 hover:text-gray-700'
+            editing ? 'text-primary' : 'text-gray-500 hover:text-gray-700',
           )}
         />
       </button>
@@ -202,7 +202,7 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
           <IconLink
             className={classNames(
               'size-6 p-1.5 -m-0.5',
-              url ? 'text-primary' : 'text-gray-500 hover:text-gray-700'
+              url ? 'text-primary' : 'text-gray-500 hover:text-gray-700',
             )}
           />
         </button>

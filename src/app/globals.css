@@ -35,13 +35,3 @@ body {
 button {
   @apply cursor-pointer;
 }
-
-/* .cursor-check {
-  cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHRleHQgeD0iMiIgeT0iMTgiIGZvbnQtc2l6ZT0iMTgiPuKchTwvdGV4dD48L3N2Zz4=')
-      12 12,
-    pointer;
-} */
-
-.cursor-check {
-  cursor: url('/check-circle.svg') 12 12, pointer;
-}
