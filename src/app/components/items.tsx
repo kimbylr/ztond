@@ -186,14 +186,14 @@ const ContentItem: FC<ItemProps> = ({ todo, dragGripProps, onSetDone, setHeight 
       <button onClick={() => (editing ? onEdit() : setEditing(true))}>
         <IconEdit
           className={classNames(
-            'size-6 p-1.5 -m-1.5',
+            'size-7 p-2 -m-2',
             editing ? 'text-primary' : 'text-gray-500 hover:text-gray-700',
           )}
         />
       </button>
 
       {!editing ? (
-        <button {...dragGripProps} className="cursor-grab">
+        <button {...dragGripProps} className="cursor-grab -m-2 p-2  ml-0 pl-0">
           <IconDragGrip className="size-5 text-gray-200 rotate-90" />
         </button>
       ) : (
